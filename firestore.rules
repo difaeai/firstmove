@@ -6,16 +6,18 @@ rules_version = '2';
 // Model:
 //   * The public website may CREATE enquiries and delegation registrations
 //     (so the contact / registration forms work) but may NOT read them.
-//   * Only a signed-in admin may READ, UPDATE (change status) or DELETE them.
-//   * Set VITE_ADMIN_EMAIL in your .env to lock the panel to one address;
-//     otherwise any account created in Firebase Authentication is treated
-//     as an admin.
+//   * Only the ADMIN (signed in with the address below) may READ, UPDATE
+//     (change status) or DELETE them.
+//
+// To change the admin address, update ADMIN_EMAIL here AND `adminEmail` in
+// src/lib/firebase.ts, then redeploy:  npm run deploy:rules
 // ----------------------------------------------------------------------------
 service cloud.firestore {
   match /databases/{database}/documents {
 
-    function isSignedIn() {
-      return request.auth != null;
+    function isAdmin() {
+      return request.auth != null
+        && request.auth.token.email == 'info@firstoptionworldwide.com';
     }
 
     // Basic shape / anti-spam validation for public submissions.
@@ -38,12 +40,12 @@ service cloud.firestore {
 
     match /enquiries/{id} {
       allow create: if validEnquiry();
-      allow read, update, delete: if isSignedIn();
+      allow read, update, delete: if isAdmin();
     }
 
     match /delegations/{id} {
       allow create: if validDelegation();
-      allow read, update, delete: if isSignedIn();
+      allow read, update, delete: if isAdmin();
     }
 
     // Deny everything else by default.

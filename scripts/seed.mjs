@@ -14,7 +14,8 @@ const PROJECT_ID = 'demo-first-option'
 process.env.FIRESTORE_EMULATOR_HOST ||= '127.0.0.1:8080'
 process.env.FIREBASE_AUTH_EMULATOR_HOST ||= '127.0.0.1:9099'
 
-const ADMIN_EMAIL = 'admin@firstoptionworldwide.com'
+// Must match the admin address in firestore.rules / storage.rules.
+const ADMIN_EMAIL = 'info@firstoptionworldwide.com'
 const ADMIN_PASSWORD = 'admin12345'
 
 admin.initializeApp({ projectId: PROJECT_ID })
