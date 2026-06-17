@@ -94,6 +94,10 @@
   .text-balance {
     text-wrap: balance;
   }
+  /* Renders a dark-artwork logo as a clean white silhouette on dark backgrounds. */
+  .logo-white {
+    filter: brightness(0) invert(1);
+  }
   .mask-fade-x {
     -webkit-mask-image: linear-gradient(
       to right,

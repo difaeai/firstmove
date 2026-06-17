@@ -6,9 +6,13 @@
   "description": "First Option Worldwide — Gateway to Global Opportunities. Marketing website with admin panel.",
   "scripts": {
     "dev": "vite",
+    "dev:demo": "cross-env VITE_USE_EMULATORS=true vite",
     "build": "tsc -b && vite build",
     "preview": "vite preview",
     "lint": "tsc -b --noEmit",
+    "emulators": "firebase emulators:start --only auth,firestore,storage,ui",
+    "seed": "node scripts/seed.mjs",
+    "demo": "firebase emulators:exec --only auth,firestore,storage \"npm run seed && npm run dev:demo\"",
     "deploy": "npm run build && firebase deploy --only hosting",
     "deploy:rules": "firebase deploy --only firestore:rules,storage"
   },
@@ -25,6 +29,8 @@
     "@types/react-dom": "^18.3.0",
     "@vitejs/plugin-react": "^4.3.1",
     "autoprefixer": "^10.4.20",
+    "cross-env": "^7.0.3",
+    "firebase-admin": "^12.5.0",
     "postcss": "^8.4.45",
     "tailwindcss": "^3.4.10",
     "typescript": "^5.5.4",

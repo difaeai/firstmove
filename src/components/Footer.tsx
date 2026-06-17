@@ -25,7 +25,7 @@ export default function Footer() {
         <div className="grid gap-12 lg:grid-cols-[1.5fr_1fr_1fr_1.2fr]">
           {/* Brand */}
           <div>
-            <Logo />
+            <Logo className="h-16" />
             <p className="mt-5 font-serif text-lg italic text-gold-300">{footer.motto}</p>
             <p className="mt-4 max-w-sm text-sm leading-relaxed text-navy-200">{footer.blurb}</p>
           </div>

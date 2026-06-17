@@ -48,7 +48,7 @@ export default function AdminLogin() {
         <div className="pointer-events-none absolute inset-0 bg-grid-navy bg-[size:40px_40px] opacity-50" />
         <div className="pointer-events-none absolute -right-20 top-1/3 h-72 w-72 rounded-full bg-gold-500/20 blur-[120px]" />
         <div className="relative">
-          <Logo />
+          <Logo className="h-14" />
         </div>
         <div className="relative">
           <ShieldCheck className="h-10 w-10 text-gold-400" />
@@ -73,8 +73,8 @@ export default function AdminLogin() {
           className="w-full max-w-sm"
         >
           <div className="lg:hidden">
-            <div className="inline-flex rounded-2xl bg-navy-900 p-3">
-              <Logo />
+            <div className="inline-flex rounded-2xl bg-navy-900 px-4 py-3">
+              <Logo className="h-10" />
             </div>
           </div>
 

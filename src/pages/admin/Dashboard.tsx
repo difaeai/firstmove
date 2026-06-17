@@ -133,9 +133,7 @@ export default function AdminDashboard() {
       <header className="sticky top-0 z-30 border-b border-slate-200 bg-white">
         <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-3 sm:px-8">
           <div className="flex items-center gap-3">
-            <div className="rounded-xl bg-navy-900 p-2">
-              <Logo compact />
-            </div>
+            <Logo className="h-10" variant="dark" />
             <div className="hidden sm:block">
               <div className="font-serif text-lg font-700 leading-none text-navy-800">
                 Admin Panel
