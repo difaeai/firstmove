@@ -53,7 +53,7 @@ export default function Navbar() {
       >
         <nav className="container-page flex items-center justify-between py-4">
           <a href="#top" aria-label={company.name}>
-            <Logo />
+            <Logo className="h-10 sm:h-12" />
           </a>
 
           <ul className="hidden items-center gap-7 lg:flex">
@@ -102,7 +102,7 @@ export default function Navbar() {
               className="absolute right-0 top-0 flex h-full w-[82%] max-w-sm flex-col bg-navy-900 p-7 shadow-2xl"
             >
               <div className="flex items-center justify-between">
-                <Logo />
+                <Logo className="h-10 sm:h-12" />
                 <button
                   className="inline-flex h-11 w-11 items-center justify-center rounded-lg border border-white/10 text-white"
                   onClick={() => setOpen(false)}

@@ -57,7 +57,35 @@ The site runs without Firebase configured — the forms simply show a
 
 ---
 
-## 🔥 Firebase setup (one time)
+## ▶️ Try the FULL app locally — no Firebase account needed
+
+You can run the entire thing (forms → admin inbox, login, file uploads) against
+the local **Firebase Emulator Suite**. Nothing is sent to the cloud and no keys
+are required. Requires [Java](https://adoptium.net/) and the Firebase CLI
+(`npm install -g firebase-tools`).
+
+**One command:**
+
+```bash
+npm run demo
+```
+
+This boots the emulators, seeds demo enquiries + registrations and a ready admin
+user, and starts the site. Then open:
+
+- **Website:** http://localhost:5173
+- **Admin panel:** http://localhost:5173/admin
+  - email: `admin@firstoptionworldwide.com`
+  - password: `admin12345`
+- **Emulator dashboard:** http://localhost:4000
+
+Submit the contact / trade-delegation forms on the site and watch them appear
+live in the admin panel. (Prefer separate terminals? Run `npm run emulators`,
+then `npm run seed`, then `npm run dev:demo`.)
+
+---
+
+## 🔥 Firebase setup for production (one time)
 
 ### 1. Create the project
 1. Go to <https://console.firebase.google.com> → **Add project**.
@@ -144,13 +172,21 @@ firestore.rules · storage.rules · firebase.json
 
 ## 📜 Scripts
 
-| Command                | Description                              |
-| ---------------------- | ---------------------------------------- |
-| `npm run dev`          | Start the dev server                     |
-| `npm run build`        | Type-check + production build to `dist/` |
-| `npm run preview`      | Preview the production build locally     |
-| `npm run deploy`       | Build + deploy hosting to Firebase       |
-| `npm run deploy:rules` | Deploy Firestore + Storage rules         |
+| Command                | Description                                        |
+| ---------------------- | -------------------------------------------------- |
+| `npm run dev`          | Start the dev server                               |
+| `npm run demo`         | Emulators + seed data + site (full local demo)     |
+| `npm run emulators`    | Start the Firebase Emulator Suite                  |
+| `npm run seed`         | Seed demo data + admin user into the emulators     |
+| `npm run dev:demo`     | Dev server wired to the emulators                  |
+| `npm run build`        | Type-check + production build to `dist/`           |
+| `npm run preview`      | Preview the production build locally               |
+| `npm run deploy`       | Build + deploy hosting to Firebase                 |
+| `npm run deploy:rules` | Deploy Firestore + Storage rules                   |
+
+> **Logo:** your real brand logo lives at [`public/logo.png`](public/logo.png).
+> Replace that file to update it everywhere (it renders in white on dark
+> sections automatically).
 
 ---
 
