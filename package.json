@@ -4,10 +4,14 @@
   "version": "1.0.0",
   "type": "module",
   "description": "First Option Worldwide — Gateway to Global Opportunities. Marketing website with admin panel.",
+  "engines": {
+    "node": ">=20"
+  },
   "scripts": {
     "dev": "vite",
     "dev:demo": "cross-env VITE_USE_EMULATORS=true vite",
     "build": "tsc -b && vite build",
+    "start": "node server.js",
     "preview": "vite preview",
     "lint": "tsc -b --noEmit",
     "emulators": "firebase emulators:start --only auth,firestore,storage,ui",
@@ -17,6 +21,7 @@
     "deploy:rules": "firebase deploy --only firestore:rules,storage"
   },
   "dependencies": {
+    "express": "^4.21.2",
     "firebase": "^10.13.0",
     "framer-motion": "^11.3.24",
     "lucide-react": "^0.439.0",
