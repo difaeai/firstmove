@@ -22,7 +22,7 @@ export const useEmulators = import.meta.env.VITE_USE_EMULATORS === 'true'
 // in firestore.rules / storage.rules. Create this user in Firebase
 // Authentication. Override in the browser via VITE_ADMIN_EMAIL if needed.
 export const adminEmail = (
-  import.meta.env.VITE_ADMIN_EMAIL || 'info@firstoptionworldwide.com'
+  import.meta.env.VITE_ADMIN_EMAIL || 'firstoptionworldwide@gmail.com'
 )
   .trim()
   .toLowerCase()

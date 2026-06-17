@@ -75,7 +75,7 @@ user, and starts the site. Then open:
 
 - **Website:** http://localhost:5173
 - **Admin panel:** http://localhost:5173/admin
-  - email: `info@firstoptionworldwide.com`
+  - email: `firstoptionworldwide@gmail.com`
   - password: `admin12345`
 - **Emulator dashboard:** http://localhost:4000
 
@@ -100,7 +100,7 @@ In the [Firebase console](https://console.firebase.google.com) open the
 - **Storage**
 
 ### 2. Create the admin user
-Authentication → **Users** → **Add user**, using **`info@firstoptionworldwide.com`**
+Authentication → **Users** → **Add user**, using **`firstoptionworldwide@gmail.com`**
 and a strong password. This is the only account allowed to read the inbox.
 
 > Want a different admin address? Change it in three places, then redeploy the

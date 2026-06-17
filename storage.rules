@@ -15,7 +15,7 @@ service firebase.storage {
 
     function isAdmin() {
       return request.auth != null
-        && request.auth.token.email == 'info@firstoptionworldwide.com';
+        && request.auth.token.email == 'firstoptionworldwide@gmail.com';
     }
 
     match /delegation-profiles/{fileName} {
