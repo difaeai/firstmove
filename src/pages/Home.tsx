@@ -13,7 +13,7 @@ import ScrollProgress from '../components/ui/ScrollProgress'
 
 export default function Home() {
   return (
-    <div className="bg-navy-900">
+    <div className="bg-white">
       <ScrollProgress />
       <Navbar />
       <main>

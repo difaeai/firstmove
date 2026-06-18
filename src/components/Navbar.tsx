@@ -25,15 +25,15 @@ export default function Navbar() {
   return (
     <>
       {/* Top utility bar */}
-      <div className="hidden border-b border-white/5 bg-navy-950/80 text-navy-200 lg:block">
+      <div className="hidden border-b border-navy-100 bg-navy-50 text-navy-600 lg:block">
         <div className="container-page flex items-center justify-between py-2 text-xs">
           <span className="truncate">{company.headquartersAddress}</span>
           <div className="flex items-center gap-6">
             <span>{company.hours}</span>
-            <a href={`mailto:${company.email}`} className="hover:text-gold-400">
+            <a href={`mailto:${company.email}`} className="hover:text-gold-600">
               {company.email}
             </a>
-            <a href={`tel:${company.whatsapp.replace(/\s/g, '')}`} className="hover:text-gold-400">
+            <a href={`tel:${company.whatsapp.replace(/\s/g, '')}`} className="hover:text-gold-600">
               {company.whatsapp}
             </a>
           </div>
@@ -47,13 +47,13 @@ export default function Navbar() {
         transition={{ duration: 0.6, ease: 'easeOut' }}
         className={`sticky top-0 z-50 transition-all duration-300 ${
           scrolled
-            ? 'border-b border-white/10 bg-navy-900/85 backdrop-blur-lg shadow-card'
+            ? 'border-b border-navy-100 bg-white/85 backdrop-blur-lg shadow-card-light'
             : 'bg-transparent'
         }`}
       >
         <nav className="container-page flex items-center justify-between py-4">
           <a href="#top" aria-label={company.name}>
-            <Logo className="h-10 sm:h-12" />
+            <Logo className="h-10 sm:h-12" variant="dark" />
           </a>
 
           <ul className="hidden items-center gap-7 lg:flex">
@@ -61,7 +61,7 @@ export default function Navbar() {
               <li key={item.href}>
                 <a
                   href={item.href}
-                  className="group relative font-display text-sm font-600 uppercase tracking-wider text-navy-100 transition hover:text-white"
+                  className="group relative font-display text-sm font-600 uppercase tracking-wider text-navy-700 transition hover:text-navy-900"
                 >
                   {item.label}
                   <span className="absolute -bottom-1 left-0 h-0.5 w-0 bg-gold-sheen transition-all duration-300 group-hover:w-full" />
@@ -75,7 +75,7 @@ export default function Navbar() {
           </a>
 
           <button
-            className="inline-flex h-11 w-11 items-center justify-center rounded-lg border border-white/10 text-white lg:hidden"
+            className="inline-flex h-11 w-11 items-center justify-center rounded-lg border border-navy-200 text-navy-700 lg:hidden"
             onClick={() => setOpen(true)}
             aria-label="Open menu"
           >
@@ -93,18 +93,18 @@ export default function Navbar() {
             exit={{ opacity: 0 }}
             className="fixed inset-0 z-[60] lg:hidden"
           >
-            <div className="absolute inset-0 bg-navy-950/80 backdrop-blur-sm" onClick={() => setOpen(false)} />
+            <div className="absolute inset-0 bg-navy-950/40 backdrop-blur-sm" onClick={() => setOpen(false)} />
             <motion.div
               initial={{ x: '100%' }}
               animate={{ x: 0 }}
               exit={{ x: '100%' }}
               transition={{ type: 'tween', ease: [0.22, 1, 0.36, 1], duration: 0.4 }}
-              className="absolute right-0 top-0 flex h-full w-[82%] max-w-sm flex-col bg-navy-900 p-7 shadow-2xl"
+              className="absolute right-0 top-0 flex h-full w-[82%] max-w-sm flex-col bg-white p-7 shadow-2xl"
             >
               <div className="flex items-center justify-between">
-                <Logo className="h-10 sm:h-12" />
+                <Logo className="h-10 sm:h-12" variant="dark" />
                 <button
-                  className="inline-flex h-11 w-11 items-center justify-center rounded-lg border border-white/10 text-white"
+                  className="inline-flex h-11 w-11 items-center justify-center rounded-lg border border-navy-200 text-navy-700"
                   onClick={() => setOpen(false)}
                   aria-label="Close menu"
                 >
@@ -122,7 +122,7 @@ export default function Navbar() {
                     <a
                       href={item.href}
                       onClick={() => setOpen(false)}
-                      className="block border-b border-white/5 py-4 font-display text-lg font-600 uppercase tracking-wide text-navy-100 hover:text-gold-400"
+                      className="block border-b border-navy-100 py-4 font-display text-lg font-600 uppercase tracking-wide text-navy-700 hover:text-gold-600"
                     >
                       {item.label}
                     </a>

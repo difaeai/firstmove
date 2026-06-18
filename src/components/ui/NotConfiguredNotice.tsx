@@ -4,13 +4,13 @@ import { AlertTriangle } from 'lucide-react'
 export default function NotConfiguredNotice({ className = '' }: { className?: string }) {
   return (
     <div
-      className={`flex items-start gap-3 rounded-xl border border-amber-400/30 bg-amber-400/10 p-4 text-sm text-amber-200 ${className}`}
+      className={`flex items-start gap-3 rounded-xl border border-amber-300 bg-amber-50 p-4 text-sm text-amber-800 ${className}`}
     >
       <AlertTriangle className="mt-0.5 h-4 w-4 shrink-0" />
       <p>
         This form is not connected yet. Add your Firebase keys to a{' '}
-        <code className="rounded bg-black/30 px-1">.env</code> file (see{' '}
-        <code className="rounded bg-black/30 px-1">.env.example</code>) to start receiving
+        <code className="rounded bg-amber-100 px-1">.env</code> file (see{' '}
+        <code className="rounded bg-amber-100 px-1">.env.example</code>) to start receiving
         submissions in the admin panel.
       </p>
     </div>

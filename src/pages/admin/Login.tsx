@@ -53,7 +53,7 @@ export default function AdminLogin() {
         <div className="relative">
           <ShieldCheck className="h-10 w-10 text-gold-400" />
           <h1 className="mt-5 font-serif text-4xl font-700 leading-tight text-white">
-            Admin <span className="text-gradient-gold">Control Panel</span>
+            Admin <span className="text-gold-400">Control Panel</span>
           </h1>
           <p className="mt-3 max-w-sm text-navy-200">
             Manage enquiries and trade delegation registrations submitted through the website.

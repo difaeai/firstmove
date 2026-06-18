@@ -8,9 +8,9 @@ export default function GlobalReach() {
   return (
     <section
       id="global-reach"
-      className="relative overflow-hidden bg-navy-950 py-24 sm:py-28"
+      className="relative overflow-hidden bg-navy-50 py-24 sm:py-28"
     >
-      <div className="pointer-events-none absolute inset-0 bg-grid-navy bg-[size:46px_46px] opacity-40" />
+      <div className="pointer-events-none absolute inset-0 bg-grid-light bg-[size:46px_46px] opacity-60" />
       <div className="container-page relative">
         <SectionHeading
           eyebrow={globalReach.eyebrow}
@@ -30,21 +30,21 @@ export default function GlobalReach() {
               key={region.name}
               variants={staggerItem}
               whileHover={{ y: -8 }}
-              className="group relative overflow-hidden rounded-3xl border border-white/10 bg-navy-900 p-8"
+              className="group relative overflow-hidden rounded-3xl border border-navy-100 bg-white p-8 shadow-card-light"
             >
-              <div className="pointer-events-none absolute -right-8 -top-10 text-9xl opacity-10 transition-transform duration-500 group-hover:scale-110 group-hover:opacity-20">
+              <div className="pointer-events-none absolute -right-8 -top-10 text-9xl opacity-[0.06] transition-transform duration-500 group-hover:scale-110 group-hover:opacity-10">
                 {region.icon}
               </div>
               <div className="relative">
                 <span className="text-4xl">{region.icon}</span>
-                <h3 className="mt-4 font-serif text-2xl font-700 text-white">{region.name}</h3>
+                <h3 className="mt-4 font-serif text-2xl font-700 text-navy-900">{region.name}</h3>
                 <ul className="mt-5 flex flex-wrap gap-2">
                   {region.countries.map((c) => (
                     <li
                       key={c}
-                      className="inline-flex items-center gap-1.5 rounded-full border border-white/10 bg-white/[0.04] px-3 py-1.5 text-xs font-500 text-navy-100 transition-colors group-hover:border-gold-400/30"
+                      className="inline-flex items-center gap-1.5 rounded-full border border-navy-200 bg-navy-50 px-3 py-1.5 text-xs font-500 text-navy-700 transition-colors group-hover:border-gold-400/40"
                     >
-                      <MapPin className="h-3 w-3 text-gold-400" />
+                      <MapPin className="h-3 w-3 text-gold-500" />
                       {c}
                     </li>
                   ))}
