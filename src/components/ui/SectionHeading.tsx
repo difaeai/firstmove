@@ -26,7 +26,7 @@ export default function SectionHeading({
         </span>
       </Reveal>
       <Reveal delay={0.08}>
-        <h2 className={`mt-4 section-title ${light ? 'text-navy-800' : 'text-white'}`}>
+        <h2 className={`mt-4 section-title ${light ? 'text-navy-800' : 'text-navy-900'}`}>
           {titleLines.map((line, i) => (
             <span key={i} className="block">
               {i === titleLines.length - 1 ? (
@@ -42,7 +42,7 @@ export default function SectionHeading({
         <Reveal delay={0.16}>
           <p
             className={`mt-5 max-w-2xl text-base leading-relaxed sm:text-lg ${
-              light ? 'text-navy-600' : 'text-navy-200'
+              light ? 'text-navy-600' : 'text-navy-600'
             }`}
           >
             {intro}

@@ -17,6 +17,7 @@ import {
 } from 'firebase/firestore'
 import { getDownloadURL, ref, uploadBytes } from 'firebase/storage'
 import { db, storage } from './firebase'
+import { company } from '../data/content'
 
 export type SubmissionStatus = 'new' | 'read' | 'responded'
 
@@ -60,6 +61,23 @@ const DELEGATIONS = 'delegations'
 function assertDb() {
   if (!db) throw new Error('Firebase is not configured.')
   return db
+}
+
+/**
+ * Turns a raw Firebase error into a clear, actionable message for the visitor
+ * (and points the site owner at the real cause). The original error is still
+ * logged to the console by the caller for debugging.
+ */
+export function submissionErrorMessage(err: unknown): string {
+  const code = String((err as { code?: string })?.code ?? '')
+  const email = company.email
+  if (code === 'permission-denied')
+    return `We couldn’t save your details — the request was blocked. Please email us at ${email} and we’ll respond right away.`
+  if (code === 'unavailable' || code === 'failed-precondition' || code === 'not-found')
+    return `Our submission service is briefly unavailable. Please try again shortly, or email us at ${email}.`
+  if (code.startsWith('storage/'))
+    return `We couldn’t upload your company profile. Please try a smaller file (max 10MB) or email it to ${email}.`
+  return `Something went wrong. Please try again, or email us directly at ${email}.`
 }
 
 // ---- Public writes ---------------------------------------------------------

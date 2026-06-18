@@ -3,7 +3,7 @@ import { motion } from 'framer-motion'
 import { CheckCircle2, Mail, MapPin, Phone, Globe, Send } from 'lucide-react'
 import { contact } from '../data/content'
 import { isFirebaseConfigured } from '../lib/firebase'
-import { submitEnquiry } from '../lib/queries'
+import { submitEnquiry, submissionErrorMessage } from '../lib/queries'
 import SectionHeading from './ui/SectionHeading'
 import Reveal from './ui/Reveal'
 import NotConfiguredNotice from './ui/NotConfiguredNotice'
@@ -36,15 +36,15 @@ export default function Contact() {
       setStatus('done')
       setForm(empty)
     } catch (err) {
-      console.error(err)
-      setError('Something went wrong. Please try again or email us directly.')
+      console.error('[enquiry submit]', err)
+      setError(submissionErrorMessage(err))
       setStatus('error')
     }
   }
 
   return (
-    <section id="contact" className="relative overflow-hidden bg-navy-950 py-24 sm:py-28">
-      <div className="pointer-events-none absolute -right-20 top-10 h-80 w-80 rounded-full bg-gold-500/10 blur-[130px]" />
+    <section id="contact" className="relative overflow-hidden bg-white py-24 sm:py-28">
+      <div className="pointer-events-none absolute -right-20 top-10 h-80 w-80 rounded-full bg-gold-300/20 blur-[130px]" />
       <div className="container-page">
         <SectionHeading eyebrow={contact.eyebrow} title={contact.title} intro={contact.intro} />
 
@@ -52,8 +52,8 @@ export default function Contact() {
           {/* Form */}
           <Reveal direction="right">
             <div className="glass-card p-7 sm:p-9">
-              <h3 className="font-serif text-2xl font-700 text-white">{contact.formHeading}</h3>
-              <p className="mt-1 text-sm text-navy-200">{contact.formSubheading}</p>
+              <h3 className="font-serif text-2xl font-700 text-navy-900">{contact.formHeading}</h3>
+              <p className="mt-1 text-sm text-navy-600">{contact.formSubheading}</p>
 
               {!isFirebaseConfigured && <NotConfiguredNotice className="mt-6" />}
 
@@ -61,11 +61,11 @@ export default function Contact() {
                 <motion.div
                   initial={{ opacity: 0, scale: 0.95 }}
                   animate={{ opacity: 1, scale: 1 }}
-                  className="mt-8 flex flex-col items-center rounded-2xl border border-gold-400/30 bg-gold-400/5 p-8 text-center"
+                  className="mt-8 flex flex-col items-center rounded-2xl border border-gold-400/40 bg-gold-400/10 p-8 text-center"
                 >
-                  <CheckCircle2 className="h-12 w-12 text-gold-400" />
-                  <h4 className="mt-4 font-serif text-xl font-700 text-white">Message Sent!</h4>
-                  <p className="mt-2 text-sm text-navy-200">{contact.intro}</p>
+                  <CheckCircle2 className="h-12 w-12 text-gold-500" />
+                  <h4 className="mt-4 font-serif text-xl font-700 text-navy-900">Message Sent!</h4>
+                  <p className="mt-2 text-sm text-navy-600">{contact.intro}</p>
                   <button onClick={() => setStatus('idle')} className="btn-outline mt-6">
                     Send another
                   </button>
@@ -131,7 +131,7 @@ export default function Contact() {
                     />
                   </div>
 
-                  {status === 'error' && <p className="text-sm text-red-400">{error}</p>}
+                  {status === 'error' && <p className="text-sm text-red-600">{error}</p>}
 
                   <button
                     type="submit"
@@ -159,16 +159,16 @@ export default function Contact() {
                 return (
                   <div
                     key={card.label}
-                    className="flex items-start gap-4 rounded-2xl border border-white/10 bg-white/[0.03] p-5 transition-colors hover:border-gold-400/30"
+                    className="flex items-start gap-4 rounded-2xl border border-navy-100 bg-navy-50 p-5 transition-colors hover:border-gold-400/50"
                   >
                     <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-gold-sheen text-navy-900">
                       <Icon className="h-5 w-5" />
                     </div>
                     <div>
-                      <div className="font-display text-xs font-600 uppercase tracking-widest text-gold-400">
+                      <div className="font-display text-xs font-600 uppercase tracking-widest text-gold-600">
                         {card.label}
                       </div>
-                      <div className="mt-1 text-sm leading-relaxed text-navy-100">{card.value}</div>
+                      <div className="mt-1 text-sm leading-relaxed text-navy-700">{card.value}</div>
                     </div>
                   </div>
                 )

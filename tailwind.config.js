@@ -59,10 +59,14 @@ export default {
       backgroundImage: {
         'grid-navy':
           'linear-gradient(rgba(255,255,255,0.035) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.035) 1px, transparent 1px)',
+        'grid-light':
+          'linear-gradient(rgba(19,49,92,0.06) 1px, transparent 1px), linear-gradient(90deg, rgba(19,49,92,0.06) 1px, transparent 1px)',
         'gold-sheen':
           'linear-gradient(110deg, #c8a24b 0%, #e8c766 35%, #d4af37 50%, #a3801f 80%)',
         'navy-radial':
           'radial-gradient(circle at 30% 20%, #13315c 0%, #0a1830 45%, #070f20 100%)',
+        'light-radial':
+          'radial-gradient(circle at 30% 12%, #ffffff 0%, #f3f7fd 55%, #e9f0fb 100%)',
       },
       keyframes: {
         'fade-up': {

@@ -3,7 +3,7 @@ import { motion } from 'framer-motion'
 import { CheckCircle2, FileUp, Loader2, X } from 'lucide-react'
 import { tradeDelegation as td } from '../data/content'
 import { isFirebaseConfigured } from '../lib/firebase'
-import { submitDelegation, uploadDelegationProfile } from '../lib/queries'
+import { submitDelegation, submissionErrorMessage, uploadDelegationProfile } from '../lib/queries'
 import SectionHeading from './ui/SectionHeading'
 import Reveal from './ui/Reveal'
 import NotConfiguredNotice from './ui/NotConfiguredNotice'
@@ -53,32 +53,42 @@ export default function TradeDelegation() {
     setStatus('sending')
     setError('')
     try {
-      const profile = file ? await uploadDelegationProfile(file) : undefined
+      let profile
+      if (file) {
+        try {
+          profile = await uploadDelegationProfile(file)
+        } catch (err) {
+          console.error('[delegation upload]', err)
+          setError(submissionErrorMessage(err))
+          setStatus('error')
+          return
+        }
+      }
       await submitDelegation(form, profile)
       setStatus('done')
       setForm(empty)
       setFile(null)
     } catch (err) {
-      console.error(err)
-      setError('Something went wrong. Please try again or email us directly.')
+      console.error('[delegation submit]', err)
+      setError(submissionErrorMessage(err))
       setStatus('error')
     }
   }
 
   return (
-    <section id="trade-delegation" className="relative overflow-hidden bg-navy-900 py-24 sm:py-28">
-      <div className="pointer-events-none absolute inset-0 bg-grid-navy bg-[size:46px_46px] opacity-30" />
-      <div className="pointer-events-none absolute -left-24 top-1/4 h-80 w-80 rounded-full bg-azure-500/15 blur-[130px]" />
+    <section id="trade-delegation" className="relative overflow-hidden bg-navy-50 py-24 sm:py-28">
+      <div className="pointer-events-none absolute inset-0 bg-grid-light bg-[size:46px_46px] opacity-60" />
+      <div className="pointer-events-none absolute -left-24 top-1/4 h-80 w-80 rounded-full bg-azure-400/10 blur-[130px]" />
       <div className="container-page relative">
         <SectionHeading eyebrow={td.eyebrow} title={td.title} intro={td.intro} />
 
         <Reveal className="mx-auto mt-14 max-w-3xl">
           <div className="glass-card overflow-hidden">
             {/* Header band */}
-            <div className="border-b border-white/10 bg-navy-950/50 p-7">
-              <h3 className="font-serif text-2xl font-700 text-white">{td.formHeading}</h3>
-              <p className="mt-1 text-sm text-navy-200">{td.formSubheading}</p>
-              <div className="mt-4 inline-flex items-center gap-2 rounded-full border border-gold-400/30 bg-gold-400/5 px-4 py-1.5 text-xs text-gold-300">
+            <div className="border-b border-navy-100 bg-navy-50 p-7">
+              <h3 className="font-serif text-2xl font-700 text-navy-900">{td.formHeading}</h3>
+              <p className="mt-1 text-sm text-navy-600">{td.formSubheading}</p>
+              <div className="mt-4 inline-flex items-center gap-2 rounded-full border border-gold-400/40 bg-gold-400/10 px-4 py-1.5 text-xs text-gold-700">
                 <span className="font-600 uppercase tracking-widest">{td.destinationsLabel}:</span>
                 {td.destinationsValue}
               </div>
@@ -91,11 +101,11 @@ export default function TradeDelegation() {
                 <motion.div
                   initial={{ opacity: 0, scale: 0.95 }}
                   animate={{ opacity: 1, scale: 1 }}
-                  className="flex flex-col items-center rounded-2xl border border-gold-400/30 bg-gold-400/5 p-10 text-center"
+                  className="flex flex-col items-center rounded-2xl border border-gold-400/40 bg-gold-400/10 p-10 text-center"
                 >
-                  <CheckCircle2 className="h-14 w-14 text-gold-400" />
-                  <h4 className="mt-4 font-serif text-2xl font-700 text-white">{td.successTitle}</h4>
-                  <p className="mt-3 max-w-md text-sm leading-relaxed text-navy-200">
+                  <CheckCircle2 className="h-14 w-14 text-gold-500" />
+                  <h4 className="mt-4 font-serif text-2xl font-700 text-navy-900">{td.successTitle}</h4>
+                  <p className="mt-3 max-w-md text-sm leading-relaxed text-navy-600">
                     {td.successText}
                   </p>
                   <button onClick={() => setStatus('idle')} className="btn-outline mt-7">
@@ -104,7 +114,7 @@ export default function TradeDelegation() {
                 </motion.div>
               ) : (
                 <form onSubmit={onSubmit} className="space-y-5">
-                  <p className="text-xs leading-relaxed text-navy-300">{td.requiredNote}</p>
+                  <p className="text-xs leading-relaxed text-navy-500">{td.requiredNote}</p>
 
                   <div className="grid gap-5 sm:grid-cols-2">
                     <Field label="Full Name" required value={form.fullName} onChange={update('fullName')} />
@@ -131,7 +141,7 @@ export default function TradeDelegation() {
 
                   <div>
                     <label className="field-label">
-                      Industry / Sector <span className="text-gold-400">*</span>
+                      Industry / Sector <span className="text-gold-500">*</span>
                     </label>
                     <select required value={form.industry} onChange={update('industry')} className="field-input">
                       <option value="" disabled>
@@ -155,7 +165,7 @@ export default function TradeDelegation() {
                   {/* Package picker */}
                   <div>
                     <label className="field-label">
-                      Select Delegation Package <span className="text-gold-400">*</span>
+                      Select Delegation Package <span className="text-gold-500">*</span>
                     </label>
                     <div className="mt-2 grid gap-4 sm:grid-cols-2">
                       {td.packages.map((p) => {
@@ -168,12 +178,12 @@ export default function TradeDelegation() {
                             className={`rounded-2xl border p-5 text-left transition-all ${
                               selected
                                 ? 'border-gold-400 bg-gold-400/10 shadow-glow'
-                                : 'border-white/10 bg-navy-950/50 hover:border-gold-400/40'
+                                : 'border-navy-200 bg-white hover:border-gold-400/50'
                             }`}
                           >
                             <div className="text-2xl">{p.flags}</div>
-                            <div className="mt-2 font-serif text-lg font-700 text-white">{p.title}</div>
-                            <div className="mt-0.5 text-xs text-navy-200">{p.subtitle}</div>
+                            <div className="mt-2 font-serif text-lg font-700 text-navy-900">{p.title}</div>
+                            <div className="mt-0.5 text-xs text-navy-600">{p.subtitle}</div>
                           </button>
                         )
                       })}
@@ -200,12 +210,12 @@ export default function TradeDelegation() {
                   <div>
                     <label className="field-label">{td.uploadHint}</label>
                     {file ? (
-                      <div className="flex items-center justify-between rounded-xl border border-gold-400/30 bg-gold-400/5 px-4 py-3">
-                        <span className="truncate text-sm text-white">{file.name}</span>
+                      <div className="flex items-center justify-between rounded-xl border border-gold-400/40 bg-gold-400/10 px-4 py-3">
+                        <span className="truncate text-sm text-navy-900">{file.name}</span>
                         <button
                           type="button"
                           onClick={() => pickFile(null)}
-                          className="text-navy-200 hover:text-red-400"
+                          className="text-navy-500 hover:text-red-500"
                           aria-label="Remove file"
                         >
                           <X className="h-4 w-4" />
@@ -225,12 +235,12 @@ export default function TradeDelegation() {
                           pickFile(e.dataTransfer.files?.[0] ?? null)
                         }}
                         className={`flex cursor-pointer flex-col items-center rounded-xl border border-dashed px-4 py-8 text-center transition-colors ${
-                          dragOver ? 'border-gold-400 bg-gold-400/10' : 'border-white/15 hover:border-gold-400/40'
+                          dragOver ? 'border-gold-400 bg-gold-400/10' : 'border-navy-300 hover:border-gold-400/60'
                         }`}
                       >
-                        <FileUp className="h-6 w-6 text-gold-400" />
-                        <p className="mt-2 text-sm font-600 text-white">{td.uploadCta}</p>
-                        <p className="mt-1 text-xs text-navy-300">{td.uploadSub}</p>
+                        <FileUp className="h-6 w-6 text-gold-500" />
+                        <p className="mt-2 text-sm font-600 text-navy-900">{td.uploadCta}</p>
+                        <p className="mt-1 text-xs text-navy-500">{td.uploadSub}</p>
                       </div>
                     )}
                     <input
@@ -242,7 +252,7 @@ export default function TradeDelegation() {
                     />
                   </div>
 
-                  {(status === 'error' || error) && <p className="text-sm text-red-400">{error}</p>}
+                  {(status === 'error' || error) && <p className="text-sm text-red-600">{error}</p>}
 
                   <button
                     type="submit"
@@ -279,7 +289,7 @@ function Field({ label, value, onChange, required, placeholder }: FieldProps) {
   return (
     <div>
       <label className="field-label">
-        {label} {required && <span className="text-gold-400">*</span>}
+        {label} {required && <span className="text-gold-500">*</span>}
       </label>
       <input
         required={required}
