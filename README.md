@@ -75,7 +75,7 @@ user, and starts the site. Then open:
 
 - **Website:** http://localhost:5173
 - **Admin panel:** http://localhost:5173/admin
-  - email: `admin@firstoptionworldwide.com`
+  - email: `firstoptionworldwide@gmail.com`
   - password: `admin12345`
 - **Emulator dashboard:** http://localhost:4000
 
@@ -87,41 +87,27 @@ then `npm run seed`, then `npm run dev:demo`.)
 
 ## 🔥 Firebase setup for production (one time)
 
-### 1. Create the project
-1. Go to <https://console.firebase.google.com> → **Add project**.
-2. Inside the project, open **Build** and enable:
-   - **Firestore Database** (Start in *production* mode)
-   - **Authentication** → **Sign-in method** → enable **Email/Password**
-   - **Storage**
+This repo is already wired to the Firebase project **`firstmove-ff051`** — the
+web config lives in [`src/lib/firebase.ts`](src/lib/firebase.ts) and
+[`.firebaserc`](.firebaserc), so there are **no keys to paste**. You only need to
+switch on the services, create your admin login, and publish the rules.
 
-### 2. Get your web config
-Project settings (⚙️) → **Your apps** → Web app (`</>`) → register the app, then
-copy the values into `.env`:
+### 1. Enable the services
+In the [Firebase console](https://console.firebase.google.com) open the
+**firstmove-ff051** project → **Build**, and enable:
+- **Firestore Database** (Start in *production* mode)
+- **Authentication** → **Sign-in method** → enable **Email/Password**
+- **Storage**
 
-```env
-VITE_FIREBASE_API_KEY="..."
-VITE_FIREBASE_AUTH_DOMAIN="your-project.firebaseapp.com"
-VITE_FIREBASE_PROJECT_ID="your-project"
-VITE_FIREBASE_STORAGE_BUCKET="your-project.appspot.com"
-VITE_FIREBASE_MESSAGING_SENDER_ID="000000000000"
-VITE_FIREBASE_APP_ID="1:000000000000:web:abc123"
+### 2. Create the admin user
+Authentication → **Users** → **Add user**, using **`firstoptionworldwide@gmail.com`**
+and a strong password. This is the only account allowed to read the inbox.
 
-# Optional — lock the admin panel to one email address
-VITE_ADMIN_EMAIL="admin@firstoptionworldwide.com"
-```
+> Want a different admin address? Change it in three places, then redeploy the
+> rules: `adminEmail` in `src/lib/firebase.ts`, and `isAdmin()` in both
+> `firestore.rules` and `storage.rules`.
 
-> These keys are public client keys and are safe to ship in the browser.
-> Access is protected by the security rules below, not by hiding the keys.
-
-### 3. Create the admin user
-Authentication → **Users** → **Add user** → enter the email + password you'll use
-to sign in at `/admin`. (If you set `VITE_ADMIN_EMAIL`, use that same email.)
-
-### 4. Set `.firebaserc`
-Replace `your-firebase-project-id` in [`.firebaserc`](.firebaserc) with your real
-project ID.
-
-### 5. Deploy the security rules
+### 3. Publish the security rules
 Install the CLI once (`npm i -g firebase-tools`), then:
 
 ```bash
@@ -129,8 +115,14 @@ firebase login
 npm run deploy:rules     # publishes firestore.rules + storage.rules
 ```
 
-These rules let the public **submit** forms but only let a signed-in admin
-**read / manage** the submissions.
+The rules let the public **submit** forms but allow only the admin account to
+**read / manage** submissions.
+
+### 4. (Recommended) Lock down the API key
+In Google Cloud console → **APIs & Services → Credentials**, restrict the web API
+key to your site's domain (HTTP referrers). The keys are safe to expose, but this
+curbs abuse. For stronger protection, add
+[App Check](https://firebase.google.com/docs/app-check).
 
 ---
 

@@ -1,0 +1,12 @@
+# Firebase App Hosting runtime configuration
+# https://firebase.google.com/docs/app-hosting/configure
+#
+# The site is built with `npm run build` and served by `server.js` (npm start).
+
+runConfig:
+  # Scale to zero when there is no traffic (no cost while idle).
+  minInstances: 0
+  maxInstances: 2
+  concurrency: 80
+  cpu: 1
+  memoryMiB: 512
