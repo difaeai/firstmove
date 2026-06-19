@@ -25,6 +25,7 @@ service firebase.storage {
           request.resource.contentType.matches('application/pdf')
           || request.resource.contentType.matches('application/msword')
           || request.resource.contentType.matches('application/vnd.*')
+          || request.resource.contentType.matches('application/octet-stream')
           || request.resource.contentType.matches('image/.*')
           || request.resource.contentType.matches('text/.*')
         );
