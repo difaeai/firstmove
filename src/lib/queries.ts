@@ -75,8 +75,16 @@ export function submissionErrorMessage(err: unknown): string {
     return `We couldn’t save your details — the request was blocked. Please email us at ${email} and we’ll respond right away.`
   if (code === 'unavailable' || code === 'failed-precondition' || code === 'not-found')
     return `Our submission service is briefly unavailable. Please try again shortly, or email us at ${email}.`
+  if (code === 'storage/unauthorized')
+    return `Your company profile couldn’t be uploaded — it was blocked. You can submit without the attachment, or email it to ${email}.`
+  if (
+    code === 'storage/retry-limit-exceeded' ||
+    code === 'storage/unknown' ||
+    code === 'storage/quota-exceeded'
+  )
+    return `We couldn’t reach the file-upload service. Please submit without the attachment for now, or email it to ${email}.`
   if (code.startsWith('storage/'))
-    return `We couldn’t upload your company profile. Please try a smaller file (max 10MB) or email it to ${email}.`
+    return `Your company profile couldn’t be uploaded. Please try again, or email it to ${email}.`
   return `Something went wrong. Please try again, or email us directly at ${email}.`
 }
 
