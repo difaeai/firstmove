@@ -79,6 +79,11 @@ if (isFirebaseConfigured) {
   auth = getAuth(app)
   storage = getStorage(app)
 
+  // Fail in ~30s instead of the SDK's default 2-minute retry when the bucket
+  // is unreachable, so a misconfigured/disabled Storage surfaces quickly.
+  storage.maxUploadRetryTime = 30000
+  storage.maxOperationRetryTime = 30000
+
   if (useEmulators) {
     const host = '127.0.0.1'
     connectAuthEmulator(auth, `http://${host}:9099`, { disableWarnings: true })
