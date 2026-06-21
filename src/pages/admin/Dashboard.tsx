@@ -21,6 +21,7 @@ import { formatDate, formatShort } from '../../admin/format'
 import {
   deleteDelegation,
   deleteEnquiry,
+  getDelegationFileUrl,
   setDelegationStatus,
   setEnquiryStatus,
   watchDelegations,
@@ -546,16 +547,7 @@ function DelegationBody({ d }: { d: Delegation }) {
         >
           <Phone className="h-4 w-4" /> Call
         </a>
-        {d.profileUrl && (
-          <a
-            href={d.profileUrl}
-            target="_blank"
-            rel="noreferrer"
-            className="inline-flex items-center gap-1.5 rounded-lg border border-gold-400/50 bg-gold-400/10 px-3 py-2 text-sm font-600 text-gold-700 hover:bg-gold-400/20"
-          >
-            <Download className="h-4 w-4" /> Company Profile
-          </a>
-        )}
+        {d.profilePath && <ProfileDownloadButton path={d.profilePath} />}
       </div>
       <div className="grid grid-cols-2 gap-4">
         <Detail label="Contact Person" value={d.fullName} />
@@ -572,6 +564,38 @@ function DelegationBody({ d }: { d: Delegation }) {
         value={d.profileFileName || 'No file attached'}
       />
     </div>
+  )
+}
+
+// Resolves the admin-only download URL for a stored company profile on click.
+function ProfileDownloadButton({ path }: { path: string }) {
+  const [loading, setLoading] = useState(false)
+  const [failed, setFailed] = useState(false)
+
+  async function open() {
+    setLoading(true)
+    setFailed(false)
+    try {
+      const url = await getDelegationFileUrl(path)
+      window.open(url, '_blank', 'noopener,noreferrer')
+    } catch (err) {
+      console.error('[profile download]', err)
+      setFailed(true)
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  return (
+    <button
+      type="button"
+      onClick={open}
+      disabled={loading}
+      className="inline-flex items-center gap-1.5 rounded-lg border border-gold-400/50 bg-gold-400/10 px-3 py-2 text-sm font-600 text-gold-700 hover:bg-gold-400/20 disabled:opacity-60"
+    >
+      <Download className="h-4 w-4" />
+      {loading ? 'Opening…' : failed ? 'Retry download' : 'Company Profile'}
+    </button>
   )
 }
 

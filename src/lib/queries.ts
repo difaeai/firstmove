@@ -44,7 +44,7 @@ export interface Delegation {
   contactNumber: string
   officeAddress: string
   profileFileName: string
-  profileUrl: string
+  profilePath: string
   status: SubmissionStatus
   createdAt: Timestamp | null
 }
@@ -52,7 +52,7 @@ export interface Delegation {
 export type NewEnquiry = Omit<Enquiry, 'id' | 'status' | 'createdAt'>
 export type NewDelegation = Omit<
   Delegation,
-  'id' | 'status' | 'createdAt' | 'profileUrl' | 'profileFileName'
+  'id' | 'status' | 'createdAt' | 'profilePath' | 'profileFileName'
 >
 
 const ENQUIRIES = 'enquiries'
@@ -99,28 +99,38 @@ export async function submitEnquiry(data: NewEnquiry): Promise<void> {
 }
 
 export async function uploadDelegationProfile(file: File): Promise<{
-  url: string
+  path: string
   name: string
 }> {
   if (!storage) throw new Error('Firebase Storage is not configured.')
   const safeName = file.name.replace(/[^a-zA-Z0-9._-]/g, '_')
   const path = `delegation-profiles/${Date.now()}-${safeName}`
-  const snap = await uploadBytes(ref(storage, path), file)
-  const url = await getDownloadURL(snap.ref)
-  return { url, name: file.name }
+  // NOTE: we deliberately do NOT call getDownloadURL here. Reads are
+  // admin-only in storage.rules, so a public (signed-out) uploader cannot
+  // resolve a URL — doing so would fail with storage/unauthorized. We store
+  // the path and let the admin mint a download link on demand instead.
+  await uploadBytes(ref(storage, path), file)
+  return { path, name: file.name }
 }
 
 export async function submitDelegation(
   data: NewDelegation,
-  profile?: { url: string; name: string },
+  profile?: { path: string; name: string },
 ): Promise<void> {
   await addDoc(collection(assertDb(), DELEGATIONS), {
     ...data,
-    profileUrl: profile?.url ?? '',
+    profilePath: profile?.path ?? '',
     profileFileName: profile?.name ?? '',
     status: 'new',
     createdAt: serverTimestamp(),
   })
+}
+
+// Admin-only: resolve a download URL for a stored company-profile file.
+// Works because the admin account satisfies the `read` rule in storage.rules.
+export async function getDelegationFileUrl(path: string): Promise<string> {
+  if (!storage) throw new Error('Firebase Storage is not configured.')
+  return getDownloadURL(ref(storage, path))
 }
 
 // ---- Admin reads (real-time) ----------------------------------------------
