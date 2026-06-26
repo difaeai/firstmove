@@ -30,6 +30,16 @@ export const nav = [
   { label: 'Contact Us', href: '#contact' },
 ]
 
+// Prominent navbar CTA that takes visitors straight to the registration form.
+export const joinDelegationCta = { label: 'Join Delegation', href: '#trade-delegation' }
+
+// Full-width banner shown directly below the navbar.
+// Drop the image file in `public/` and keep this path in sync.
+export const headerBanner = {
+  src: '/header-banner.png',
+  alt: 'First Option Worldwide — International Trade Facilitation, Travel & Tours, Immigration Services',
+}
+
 export const hero = {
   eyebrow: 'International Trade Facilitation',
   titleLines: ['Your Gateway', 'to', 'Global', 'Opportunities'],

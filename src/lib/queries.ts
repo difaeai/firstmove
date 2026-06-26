@@ -105,11 +105,18 @@ export async function uploadDelegationProfile(file: File): Promise<{
   if (!storage) throw new Error('Firebase Storage is not configured.')
   const safeName = file.name.replace(/[^a-zA-Z0-9._-]/g, '_')
   const path = `delegation-profiles/${Date.now()}-${safeName}`
+  // Always send an explicit contentType. Some browsers report an empty
+  // `file.type` (e.g. certain .doc/.docx/.ppt files), and an empty
+  // contentType matches NONE of the patterns in storage.rules, so the
+  // upload would be rejected with storage/unauthorized. Falling back to
+  // application/octet-stream (which the rules allow) keeps those uploads
+  // working instead of failing intermittently.
+  const contentType = file.type || 'application/octet-stream'
   // NOTE: we deliberately do NOT call getDownloadURL here. Reads are
   // admin-only in storage.rules, so a public (signed-out) uploader cannot
   // resolve a URL — doing so would fail with storage/unauthorized. We store
   // the path and let the admin mint a download link on demand instead.
-  await uploadBytes(ref(storage, path), file)
+  await uploadBytes(ref(storage, path), file, { contentType })
   return { path, name: file.name }
 }
 

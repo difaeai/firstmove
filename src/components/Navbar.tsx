@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 import { Menu, X } from 'lucide-react'
-import { company, nav } from '../data/content'
+import { company, nav, joinDelegationCta } from '../data/content'
 import Logo from './Logo'
 
 export default function Navbar() {
@@ -35,6 +35,9 @@ export default function Navbar() {
             </a>
             <a href={`tel:${company.whatsapp.replace(/\s/g, '')}`} className="hover:text-gold-600">
               {company.whatsapp}
+            </a>
+            <a href={`tel:${company.phonePrimary.replace(/\s/g, '')}`} className="hover:text-gold-600">
+              {company.phonePrimary}
             </a>
           </div>
         </div>
@@ -70,9 +73,17 @@ export default function Navbar() {
             ))}
           </ul>
 
-          <a href="#contact" className="hidden btn-gold !px-6 !py-3 lg:inline-flex">
-            Get In Touch
-          </a>
+          <div className="hidden items-center gap-3 lg:flex">
+            <a
+              href={joinDelegationCta.href}
+              className="btn-outline !px-5 !py-3 font-display text-sm font-600 uppercase tracking-wider"
+            >
+              {joinDelegationCta.label}
+            </a>
+            <a href="#contact" className="btn-gold !px-6 !py-3">
+              Get In Touch
+            </a>
+          </div>
 
           <button
             className="inline-flex h-11 w-11 items-center justify-center rounded-lg border border-navy-200 text-navy-700 lg:hidden"
@@ -129,13 +140,22 @@ export default function Navbar() {
                   </motion.li>
                 ))}
               </ul>
-              <a
-                href="#contact"
-                onClick={() => setOpen(false)}
-                className="btn-gold mt-auto w-full"
-              >
-                Get In Touch
-              </a>
+              <div className="mt-auto flex flex-col gap-3">
+                <a
+                  href={joinDelegationCta.href}
+                  onClick={() => setOpen(false)}
+                  className="btn-outline w-full"
+                >
+                  {joinDelegationCta.label}
+                </a>
+                <a
+                  href="#contact"
+                  onClick={() => setOpen(false)}
+                  className="btn-gold w-full"
+                >
+                  Get In Touch
+                </a>
+              </div>
             </motion.div>
           </motion.div>
         )}

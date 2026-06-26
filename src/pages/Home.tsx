@@ -1,4 +1,5 @@
 import Navbar from '../components/Navbar'
+import HeaderBanner from '../components/HeaderBanner'
 import Hero from '../components/Hero'
 import Marquee from '../components/Marquee'
 import About from '../components/About'
@@ -17,6 +18,7 @@ export default function Home() {
       <ScrollProgress />
       <Navbar />
       <main>
+        <HeaderBanner />
         <Hero />
         <Marquee />
         <About />
