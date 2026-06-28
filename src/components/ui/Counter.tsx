@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import { useInView } from 'framer-motion'
 
 /**
@@ -10,7 +10,9 @@ export default function Counter({ value, duration = 1400 }: { value: string; dur
   const inView = useInView(ref, { once: true, margin: '-40px' })
   const [display, setDisplay] = useState(value)
 
-  const match = value.match(/^(\D*)(\d+)(\D*)$/)
+  // Memoized so its identity is stable across renders — otherwise the effect
+  // below would re-run every render and restart the count-up animation forever.
+  const match = useMemo(() => value.match(/^(\D*)(\d+)(\D*)$/), [value])
 
   useEffect(() => {
     if (!inView || !match) return
