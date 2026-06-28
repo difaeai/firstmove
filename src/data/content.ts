@@ -346,7 +346,7 @@ export const footer = {
   contact: {
     title: 'Contact',
     lines: [
-      'PWD Society, Islamabad',
+      company.headquartersAddress,
       'Phuket, Thailand',
       '+92 51 5710222',
       '+92 333 1114603',
