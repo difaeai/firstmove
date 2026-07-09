@@ -40,8 +40,8 @@ export interface Delegation {
   yearEstablished: string
   industry: string
   affiliation: string
-  package: string
   contactNumber: string
+  email: string
   officeAddress: string
   profileFileName: string
   profilePath: string

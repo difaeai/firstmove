@@ -82,7 +82,7 @@ export default function AdminDashboard() {
     const q = search.toLowerCase()
     return delegations.filter((d) => {
       if (statusFilter !== 'all' && d.status !== statusFilter) return false
-      return [d.fullName, d.companyName, d.designation, d.industry, d.contactNumber, d.package]
+      return [d.fullName, d.companyName, d.designation, d.industry, d.contactNumber, d.email]
         .join(' ')
         .toLowerCase()
         .includes(q)
@@ -119,8 +119,8 @@ export default function AdminDashboard() {
             'Year Established': d.yearEstablished,
             Industry: d.industry,
             Affiliation: d.affiliation,
-            Package: d.package,
             Contact: d.contactNumber,
+            Email: d.email,
             'Office Address': d.officeAddress,
             'Profile File': d.profileFileName,
             Status: d.status,
@@ -239,8 +239,8 @@ export default function AdminDashboard() {
                 key={d.id}
                 title={d.companyName}
                 subtitle={`${d.fullName} · ${d.designation}`}
-                tag={d.package}
-                preview={`${d.industry} · ${d.contactNumber}`}
+                tag={d.industry}
+                preview={`${d.email} · ${d.contactNumber}`}
                 date={formatShort(d.createdAt)}
                 status={d.status}
                 onClick={() => openRecord({ type: 'delegation', data: d })}
@@ -547,6 +547,12 @@ function DelegationBody({ d }: { d: Delegation }) {
         >
           <Phone className="h-4 w-4" /> Call
         </a>
+        <a
+          href={`mailto:${d.email}`}
+          className="inline-flex items-center gap-1.5 rounded-lg bg-navy-900 px-3 py-2 text-sm font-600 text-white hover:bg-navy-700"
+        >
+          <Mail className="h-4 w-4" /> Reply by email
+        </a>
         {d.profilePath && <ProfileDownloadButton path={d.profilePath} />}
       </div>
       <div className="grid grid-cols-2 gap-4">
@@ -555,9 +561,9 @@ function DelegationBody({ d }: { d: Delegation }) {
         <Detail label="Year Established" value={d.yearEstablished} />
         <Detail label="Industry / Sector" value={d.industry} />
       </div>
-      <Detail label="Package" value={d.package} />
       <Detail label="Affiliation (Govt / Trade Bodies)" value={d.affiliation || '—'} />
       <Detail label="Contact Number" value={d.contactNumber} />
+      <Detail label="Email Address" value={d.email} />
       <Detail label="Office Address" value={d.officeAddress} />
       <Detail
         label="Company Profile"

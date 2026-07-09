@@ -15,8 +15,8 @@ const empty = {
   yearEstablished: '',
   industry: '',
   affiliation: '',
-  package: '',
   contactNumber: '',
+  email: '',
   officeAddress: '',
 }
 
@@ -46,10 +46,6 @@ export default function TradeDelegation() {
   async function onSubmit(e: FormEvent) {
     e.preventDefault()
     if (!isFirebaseConfigured) return
-    if (!form.package) {
-      setError('Please select a delegation package.')
-      return
-    }
     setStatus('sending')
     setError('')
     try {
@@ -88,9 +84,15 @@ export default function TradeDelegation() {
             <div className="border-b border-navy-100 bg-navy-50 p-7">
               <h3 className="font-serif text-2xl font-700 text-navy-900">{td.formHeading}</h3>
               <p className="mt-1 text-sm text-navy-600">{td.formSubheading}</p>
-              <div className="mt-4 inline-flex items-center gap-2 rounded-full border border-gold-400/40 bg-gold-400/10 px-4 py-1.5 text-xs text-gold-700">
-                <span className="font-600 uppercase tracking-widest">{td.destinationsLabel}:</span>
-                {td.destinationsValue}
+              <div className="mt-4 flex flex-wrap gap-2">
+                <div className="inline-flex items-center gap-2 rounded-full border border-gold-400/40 bg-gold-400/10 px-4 py-1.5 text-xs text-gold-700">
+                  <span className="font-600 uppercase tracking-widest">{td.destinationsLabel}:</span>
+                  {td.destinationsValue}
+                </div>
+                <div className="inline-flex items-center gap-2 rounded-full border border-gold-400/40 bg-gold-400/10 px-4 py-1.5 text-xs text-gold-700">
+                  <span className="font-600 uppercase tracking-widest">{td.datesLabel}:</span>
+                  {td.datesValue}
+                </div>
               </div>
             </div>
 
@@ -162,34 +164,6 @@ export default function TradeDelegation() {
                     placeholder="Optional"
                   />
 
-                  {/* Package picker */}
-                  <div>
-                    <label className="field-label">
-                      Select Delegation Package <span className="text-gold-500">*</span>
-                    </label>
-                    <div className="mt-2 grid gap-4 sm:grid-cols-2">
-                      {td.packages.map((p) => {
-                        const selected = form.package === p.title
-                        return (
-                          <button
-                            type="button"
-                            key={p.title}
-                            onClick={() => setForm((f) => ({ ...f, package: p.title }))}
-                            className={`rounded-2xl border p-5 text-left transition-all ${
-                              selected
-                                ? 'border-gold-400 bg-gold-400/10 shadow-glow'
-                                : 'border-navy-200 bg-white hover:border-gold-400/50'
-                            }`}
-                          >
-                            <div className="text-2xl">{p.flags}</div>
-                            <div className="mt-2 font-serif text-lg font-700 text-navy-900">{p.title}</div>
-                            <div className="mt-0.5 text-xs text-navy-600">{p.subtitle}</div>
-                          </button>
-                        )
-                      })}
-                    </div>
-                  </div>
-
                   <div className="grid gap-5 sm:grid-cols-2">
                     <Field
                       label="Contact Number"
@@ -199,12 +173,21 @@ export default function TradeDelegation() {
                       placeholder="+92 …"
                     />
                     <Field
-                      label="Office Address"
+                      label="Email Address"
                       required
-                      value={form.officeAddress}
-                      onChange={update('officeAddress')}
+                      type="email"
+                      value={form.email}
+                      onChange={update('email')}
+                      placeholder="you@company.com"
                     />
                   </div>
+
+                  <Field
+                    label="Office Address"
+                    required
+                    value={form.officeAddress}
+                    onChange={update('officeAddress')}
+                  />
 
                   {/* File upload */}
                   <div>
@@ -283,15 +266,17 @@ interface FieldProps {
   onChange: (e: { target: { value: string } }) => void
   required?: boolean
   placeholder?: string
+  type?: 'text' | 'email'
 }
 
-function Field({ label, value, onChange, required, placeholder }: FieldProps) {
+function Field({ label, value, onChange, required, placeholder, type = 'text' }: FieldProps) {
   return (
     <div>
       <label className="field-label">
         {label} {required && <span className="text-gold-500">*</span>}
       </label>
       <input
+        type={type}
         required={required}
         value={value}
         onChange={onChange}
