@@ -252,11 +252,13 @@ export const tradeDelegation = {
   eyebrow: 'Register Now',
   title: 'Join the Trade Delegation',
   intro:
-    'First Option Worldwide is organizing a multi-nation Business Delegation to Central Asia. Register your company now to secure your participation and explore trade opportunities across Uzbekistan, Tajikistan and Turkmenistan.',
+    'Join the Central Asia Business Mission to Uzbekistan & Kazakhstan, 29 August – 5 September 2026. Register your company now to secure your participation and explore trade opportunities across the region.',
   formHeading: '🤝 Trade Delegation Registration',
   formSubheading: 'Pakistan — Central Asia Business Mission',
   destinationsLabel: 'Destinations',
-  destinationsValue: 'Uzbekistan + Tajikistan / Turkmenistan',
+  destinationsValue: '🇺🇿 Uzbekistan & 🇰🇿 Kazakhstan',
+  datesLabel: 'Dates',
+  datesValue: '29 August – 5 September 2026',
   requiredNote:
     'Fields marked * are required. Attaching your company profile helps our team match you with the right business counterparts in the destination country.',
   industries: [
@@ -274,18 +276,6 @@ export const tradeDelegation = {
     'Trading & Import / Export',
     'Services & Consulting',
     'Other',
-  ],
-  packages: [
-    {
-      flags: '🇺🇿 + 🇹🇯',
-      title: 'Uzbekistan + Tajikistan',
-      subtitle: 'Tashkent & Dushanbe · Central Asia',
-    },
-    {
-      flags: '🇺🇿 + 🇹🇲',
-      title: 'Uzbekistan + Turkmenistan',
-      subtitle: 'Tashkent & Ashgabat · Central Asia',
-    },
   ],
   uploadHint: 'Company Profile (Optional — PDF, Word, PPT · Max 10MB)',
   uploadCta: 'Click to upload or drag & drop your company profile',
