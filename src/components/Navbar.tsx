@@ -103,13 +103,21 @@ export default function Navbar() {
             </a>
           </div>
 
-          <button
-            className="inline-flex h-11 w-11 items-center justify-center rounded-lg border border-navy-200 text-navy-700 lg:hidden"
-            onClick={() => setOpen(true)}
-            aria-label="Open menu"
-          >
-            <Menu className="h-5 w-5" />
-          </button>
+          <div className="flex items-center gap-2 lg:hidden">
+            <a
+              href={joinDelegationCta.href}
+              className="btn-gold !px-3.5 !py-2.5 font-display text-[11px] font-600 uppercase tracking-wider sm:!px-5 sm:text-xs"
+            >
+              {joinDelegationCta.label}
+            </a>
+            <button
+              className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-lg border border-navy-200 text-navy-700"
+              onClick={() => setOpen(true)}
+              aria-label="Open menu"
+            >
+              <Menu className="h-5 w-5" />
+            </button>
+          </div>
         </nav>
       </motion.header>
 
