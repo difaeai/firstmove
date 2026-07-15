@@ -162,10 +162,10 @@ export default function TradeDelegation() {
 
                   <div>
                     <label className="field-label">
-                      Select Delegation <span className="text-xs font-400 text-navy-400">(Optional)</span>
+                      Select Delegation <span className="text-gold-500">*</span>
                     </label>
-                    <select value={form.delegation} onChange={update('delegation')} className="field-input">
-                      <option value="">
+                    <select required value={form.delegation} onChange={update('delegation')} className="field-input">
+                      <option value="" disabled>
                         Select delegation...
                       </option>
                       {delegationOptions.map((d) => (
