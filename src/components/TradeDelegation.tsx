@@ -14,11 +14,14 @@ const empty = {
   designation: '',
   yearEstablished: '',
   industry: '',
+  delegation: '',
   affiliation: '',
   contactNumber: '',
   email: '',
   officeAddress: '',
 }
+
+const delegationOptions = ['Uzbekistan', 'Kazakhstan', 'Uzbekistan + Kazakhstan']
 
 const MAX_BYTES = 10 * 1024 * 1024
 
@@ -152,6 +155,22 @@ export default function TradeDelegation() {
                       {td.industries.map((i) => (
                         <option key={i} value={i}>
                           {i}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+
+                  <div>
+                    <label className="field-label">
+                      Select Delegation <span className="text-xs font-400 text-navy-400">(Optional)</span>
+                    </label>
+                    <select value={form.delegation} onChange={update('delegation')} className="field-input">
+                      <option value="">
+                        Select delegation...
+                      </option>
+                      {delegationOptions.map((d) => (
+                        <option key={d} value={d}>
+                          {d}
                         </option>
                       ))}
                     </select>

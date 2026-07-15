@@ -39,6 +39,7 @@ export interface Delegation {
   designation: string
   yearEstablished: string
   industry: string
+  delegation: string
   affiliation: string
   contactNumber: string
   email: string

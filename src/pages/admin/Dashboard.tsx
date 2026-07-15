@@ -82,7 +82,7 @@ export default function AdminDashboard() {
     const q = search.toLowerCase()
     return delegations.filter((d) => {
       if (statusFilter !== 'all' && d.status !== statusFilter) return false
-      return [d.fullName, d.companyName, d.designation, d.industry, d.contactNumber, d.email]
+      return [d.fullName, d.companyName, d.designation, d.industry, d.delegation, d.contactNumber, d.email]
         .join(' ')
         .toLowerCase()
         .includes(q)
@@ -118,6 +118,7 @@ export default function AdminDashboard() {
             Designation: d.designation,
             'Year Established': d.yearEstablished,
             Industry: d.industry,
+            Delegation: d.delegation || '—',
             Affiliation: d.affiliation,
             Contact: d.contactNumber,
             Email: d.email,
@@ -560,6 +561,7 @@ function DelegationBody({ d }: { d: Delegation }) {
         <Detail label="Designation" value={d.designation} />
         <Detail label="Year Established" value={d.yearEstablished} />
         <Detail label="Industry / Sector" value={d.industry} />
+        <Detail label="Delegation" value={d.delegation || '—'} />
       </div>
       <Detail label="Affiliation (Govt / Trade Bodies)" value={d.affiliation || '—'} />
       <Detail label="Contact Number" value={d.contactNumber} />
