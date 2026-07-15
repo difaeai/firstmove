@@ -35,6 +35,7 @@ service cloud.firestore {
         && request.resource.data.fullName.size() > 0
         && request.resource.data.fullName.size() < 200
         && request.resource.data.companyName is string
+        && request.resource.data.delegation is string
         && request.resource.data.status == 'new';
     }
 
