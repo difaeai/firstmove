@@ -14,14 +14,12 @@ const empty = {
   designation: '',
   yearEstablished: '',
   industry: '',
-  delegation: '',
+  delegation: 'Uzbekistan',
   affiliation: '',
   contactNumber: '',
   email: '',
   officeAddress: '',
 }
-
-const delegationOptions = ['Uzbekistan', 'Kazakhstan', 'Uzbekistan + Kazakhstan']
 
 const MAX_BYTES = 10 * 1024 * 1024
 
@@ -83,22 +81,6 @@ export default function TradeDelegation() {
 
         <Reveal className="mx-auto mt-14 max-w-3xl">
           <div className="glass-card overflow-hidden">
-            {/* Header band */}
-            <div className="border-b border-navy-100 bg-navy-50 p-7">
-              <h3 className="font-serif text-2xl font-700 text-navy-900">{td.formHeading}</h3>
-              <p className="mt-1 text-sm text-navy-600">{td.formSubheading}</p>
-              <div className="mt-4 flex flex-wrap gap-2">
-                <div className="inline-flex items-center gap-2 rounded-full border border-gold-400/40 bg-gold-400/10 px-4 py-1.5 text-xs text-gold-700">
-                  <span className="font-600 uppercase tracking-widest">{td.destinationsLabel}:</span>
-                  {td.destinationsValue}
-                </div>
-                <div className="inline-flex items-center gap-2 rounded-full border border-gold-400/40 bg-gold-400/10 px-4 py-1.5 text-xs text-gold-700">
-                  <span className="font-600 uppercase tracking-widest">{td.datesLabel}:</span>
-                  {td.datesValue}
-                </div>
-              </div>
-            </div>
-
             <div className="p-7 sm:p-9">
               {!isFirebaseConfigured && <NotConfiguredNotice className="mb-6" />}
 
@@ -162,18 +144,15 @@ export default function TradeDelegation() {
 
                   <div>
                     <label className="field-label">
-                      Select Delegation <span className="text-gold-500">*</span>
+                      Delegation <span className="text-gold-500">*</span>
                     </label>
-                    <select required value={form.delegation} onChange={update('delegation')} className="field-input">
-                      <option value="" disabled>
-                        Select delegation...
-                      </option>
-                      {delegationOptions.map((d) => (
-                        <option key={d} value={d}>
-                          {d}
-                        </option>
-                      ))}
-                    </select>
+                    <input
+                      type="text"
+                      value="Uzbekistan"
+                      readOnly
+                      aria-readonly="true"
+                      className="field-input cursor-not-allowed bg-navy-50 text-navy-600"
+                    />
                   </div>
 
                   <Field
