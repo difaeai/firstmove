@@ -4,7 +4,6 @@ import { CheckCircle2, FileUp, Loader2, X } from 'lucide-react'
 import { tradeDelegation as td } from '../data/content'
 import { isFirebaseConfigured } from '../lib/firebase'
 import { submitDelegation, submissionErrorMessage, uploadDelegationProfile } from '../lib/queries'
-import SectionHeading from './ui/SectionHeading'
 import Reveal from './ui/Reveal'
 import NotConfiguredNotice from './ui/NotConfiguredNotice'
 
@@ -77,8 +76,6 @@ export default function TradeDelegation() {
       <div className="pointer-events-none absolute inset-0 bg-grid-light bg-[size:46px_46px] opacity-60" />
       <div className="pointer-events-none absolute -left-24 top-1/4 h-80 w-80 rounded-full bg-azure-400/10 blur-[130px]" />
       <div className="container-page relative">
-        <SectionHeading eyebrow={td.eyebrow} title={td.title} intro={td.intro} />
-
         <Reveal className="mx-auto mt-14 max-w-3xl">
           <div className="glass-card overflow-hidden">
             <div className="p-7 sm:p-9">
