@@ -249,6 +249,8 @@ export const offices = {
 }
 
 export const tradeDelegation = {
+  eyebrow: 'Register Now',
+  title: 'Join the Trade Delegation',
   formHeading: '🤝 Trade Delegation Registration',
   formSubheading: 'Pakistan — Central Asia Business Mission',
   destinationsLabel: 'Destinations',
