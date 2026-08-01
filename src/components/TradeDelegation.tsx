@@ -77,7 +77,7 @@ export default function TradeDelegation() {
       <div className="pointer-events-none absolute inset-0 bg-grid-light bg-[size:46px_46px] opacity-60" />
       <div className="pointer-events-none absolute -left-24 top-1/4 h-80 w-80 rounded-full bg-azure-400/10 blur-[130px]" />
       <div className="container-page relative">
-        <SectionHeading eyebrow={td.eyebrow} title={td.title} intro={td.intro} />
+        <SectionHeading eyebrow={td.eyebrow} />
 
         <Reveal className="mx-auto mt-14 max-w-3xl">
           <div className="glass-card overflow-hidden">
