@@ -1,13 +1,16 @@
-name: Deploy to Firebase Hosting
+name: Deploy to Firebase App Hosting
 
-# Builds the site and deploys it to Firebase Hosting (live channel)
-# whenever changes land on the default branch.
+# The live site (www.firstoptionworldwide.com) is served by Firebase
+# App Hosting — backend "firstmove". App Hosting builds from the repo, so
+# this workflow just asks it to create a new rollout from the latest commit
+# on the default branch whenever changes land there.
 on:
   push:
     branches: ['claude/eager-ramanujan-7hi6dz']
+  workflow_dispatch: {}
 
 jobs:
-  deploy:
+  rollout:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -16,18 +19,19 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 20
-          cache: npm
 
-      - name: Install dependencies
-        run: npm ci
+      - name: Install Firebase CLI
+        run: npm install -g firebase-tools
 
-      - name: Type-check & build
-        run: npm run build
+      - name: Create App Hosting rollout
+        env:
+          FIREBASE_SERVICE_ACCOUNT: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
+        run: |
+          # Write the service-account key to a file and point the CLI at it.
+          printf '%s' "$FIREBASE_SERVICE_ACCOUNT" > "$RUNNER_TEMP/sa.json"
+          export GOOGLE_APPLICATION_CREDENTIALS="$RUNNER_TEMP/sa.json"
 
-      - name: Deploy to Firebase Hosting
-        uses: FirebaseExtended/action-hosting-deploy@v0
-        with:
-          repoToken: ${{ secrets.GITHUB_TOKEN }}
-          firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
-          channelId: live
-          projectId: firstmove-ff051
+          firebase apphosting:rollouts:create firstmove \
+            --project firstmove-ff051 \
+            --git-branch claude/eager-ramanujan-7hi6dz \
+            --force
