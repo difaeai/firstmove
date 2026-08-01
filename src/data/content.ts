@@ -249,10 +249,6 @@ export const offices = {
 }
 
 export const tradeDelegation = {
-  eyebrow: 'Register Now',
-  title: 'Join the Trade Delegation',
-  intro:
-    'Join the Central Asia Business Mission to Uzbekistan & Kazakhstan, 29 August – 5 September 2026. Register your company now to secure your participation and explore trade opportunities across the region.',
   formHeading: '🤝 Trade Delegation Registration',
   formSubheading: 'Pakistan — Central Asia Business Mission',
   destinationsLabel: 'Destinations',
