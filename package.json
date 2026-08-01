@@ -3,15 +3,15 @@
   "private": true,
   "version": "1.0.0",
   "type": "module",
-  "description": "First Option Worldwide — Gateway to Global Opportunities. Marketing website with admin panel.",
+  "description": "First Option Worldwide \u2014 Gateway to Global Opportunities. Marketing website with admin panel.",
   "engines": {
     "node": ">=20"
   },
   "scripts": {
-    "dev": "vite",
+    "dev": "node api.js && vite",
     "dev:demo": "cross-env VITE_USE_EMULATORS=true vite",
-    "build": "tsc -b && vite build",
-    "start": "node server.js",
+    "build": "node api.js && tsc -b && vite build",
+    "start": "node api.js && node server.js",
     "preview": "vite preview",
     "lint": "tsc -b --noEmit",
     "emulators": "firebase emulators:start --only auth,firestore,storage,ui",
